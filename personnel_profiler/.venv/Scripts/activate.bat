@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\Datuin\Documents\profile_backend\.venv
+set VIRTUAL_ENV=C:\Users\Datuin\Documents\GitHub\team_week_2\personnel_profiler\.venv
 
 if not defined PROMPT set PROMPT=$P$G
 
