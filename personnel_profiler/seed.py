@@ -12,10 +12,11 @@ def seed_data():
     for _ in range(25):
         driver_data = {
             "profile_name" : fake.name(),
-            "driving_violations" : random.randint(0, 5),
+            "driving_violations" : random.randint(0, 15),
             "drug_test_result": random.choice(list(drug_test_results)),
             "license_validity": random.choice(list(validity)),
             "incident_involvement": fake.boolean(),
+            "rider_rating": round(random.uniform(1.0, 5.0), 1),
             "breathalyzer_results": round(random.uniform(0.0, 0.15), 2),
             "dangerous_driving_patterns": fake.boolean(),
             "work_violations": random.randint(0, 5),
@@ -30,9 +31,10 @@ def seed_data():
         mech_data = {
             "profile_name": fake.name(),
             "id_cert_validity": random.choice(list(validity)),
-            "repair_rates": random.randint(0,6),
+            "repair_rates": random.randint(0,15),
+            "downtime_intervals": random.randint(5, 90),
             "internal_review_score": round(random.uniform(1.0, 10.0), 1),
-            "equipment_violations": random.randint(0,5)
+            "equipment_violations": random.randint(0,15)
         }
         mech = MechanicProfile(**mech_data)
         db.session.add(mech)
@@ -41,8 +43,8 @@ def seed_data():
         helper_data = {
             "profile_name": fake.name(),
             "id_credentials_validity": random.choice(list(validity)),
-            "missed_delivery_rates": random.randint(0, 10),
-            "mismanagement_records": random.randint(0, 5),
+            "missed_delivery_rates": random.randint(0, 20),
+            "mismanagement_records": random.randint(0, 15),
             "behavior_reports_score": round(random.uniform(1.0, 5.0), 1),
         }
         helper = HelperProfile(**helper_data)

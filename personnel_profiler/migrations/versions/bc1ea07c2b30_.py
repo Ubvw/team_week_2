@@ -1,8 +1,8 @@
-"""Initial migration
+"""empty message
 
-Revision ID: 2af537f1ce35
+Revision ID: bc1ea07c2b30
 Revises: 
-Create Date: 2025-08-11 10:48:16.901603
+Create Date: 2025-08-12 22:02:30.385513
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2af537f1ce35'
+revision = 'bc1ea07c2b30'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -25,6 +25,7 @@ def upgrade():
     sa.Column('drug_test_result', sa.Enum('POSITIVE', 'NEGATIVE', name='drug_test_results'), nullable=True),
     sa.Column('license_validity', sa.Enum('VALID', 'EXPIRED', 'FAKE', name='validity'), nullable=True),
     sa.Column('incident_involvement', sa.Boolean(), nullable=True),
+    sa.Column('rider_rating', sa.Float(), nullable=True),
     sa.Column('breathalyzer_results', sa.Float(), nullable=True),
     sa.Column('dangerous_driving_patterns', sa.Boolean(), nullable=True),
     sa.Column('work_violations', sa.Integer(), nullable=True),
@@ -35,10 +36,10 @@ def upgrade():
     )
     op.create_table('eval_results',
     sa.Column('profile_id', sa.Integer(), nullable=False),
-    sa.Column('profile_type', sa.Enum('DRIVER', 'MECHANIC', 'HELPER', name='profile_type'), nullable=True),
+    sa.Column('profile_type', sa.Enum('DRIVER', 'MECHANIC', 'HELPER', name='profile_type'), nullable=False),
     sa.Column('profile_score', sa.Integer(), nullable=True),
     sa.Column('issues_list', sa.String(), nullable=True),
-    sa.PrimaryKeyConstraint('profile_id')
+    sa.PrimaryKeyConstraint('profile_id', 'profile_type')
     )
     op.create_table('helper_profiles',
     sa.Column('profile_id', sa.Integer(), nullable=False),
@@ -54,6 +55,7 @@ def upgrade():
     sa.Column('profile_name', sa.String(length=50), nullable=True),
     sa.Column('id_cert_validity', sa.Enum('VALID', 'EXPIRED', 'FAKE', name='validity'), nullable=True),
     sa.Column('repair_rates', sa.Integer(), nullable=True),
+    sa.Column('downtime_intervals', sa.Integer(), nullable=True),
     sa.Column('internal_review_score', sa.Float(), nullable=True),
     sa.Column('equipment_violations', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('profile_id')

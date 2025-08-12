@@ -5,7 +5,7 @@ def evaluate_mechanic(data):
     issues = []
 
     #id/certification check
-    id_cert_validity = data.get('id_cert_validity')
+    id_cert_validity = data.get('id_cert_validity').lower()
     if id_cert_validity == "valid":
         score -= 0
     elif id_cert_validity == "expired":
@@ -16,7 +16,7 @@ def evaluate_mechanic(data):
         issues.append('Fake ID and/or Certification')
 
     #repair/fix rate check
-    fix_rate = data.get('fix_rate_day')
+    fix_rate = data.get('repair_rates')
     if fix_rate >= 4:
         score -= 0
     elif fix_rate >= 2 and fix_rate < 4:
@@ -27,7 +27,7 @@ def evaluate_mechanic(data):
         issues.append('Below average fix and repair rates per day')
 
     #downtime check
-    downtime = data.get('downtime_mins')
+    downtime = data.get('downtime_intervals')
     if downtime <= 30:
         score -= 0
     elif downtime > 30 and downtime <= 45:
@@ -38,7 +38,7 @@ def evaluate_mechanic(data):
         issues.append('Long downtimes post-fixes')
 
     #review score check
-    review_score = data.get('review score')
+    review_score = data.get('internal_review_score')
     if review_score >= 8:
         score -= 0
     elif review_score < 8 and review_score >= 5:
@@ -49,7 +49,7 @@ def evaluate_mechanic(data):
         issues.append('Low peer/internal review score')
 
     #equip violations check
-    equip_violations = data.get('equipment violations')
+    equip_violations = data.get('equipment_violations')
     if equip_violations == 0:
         score -= 0
     elif equip_violations > 0 and equip_violations <= 3:

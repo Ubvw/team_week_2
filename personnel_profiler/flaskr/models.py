@@ -2,18 +2,18 @@ from .extensions import db
 import enum
 
 class drug_test_results(enum.Enum):
-    POSITIVE = 'positive'
-    NEGATIVE = 'negative'
+    POSITIVE = 'Positive'
+    NEGATIVE = 'Negative'
 
 class validity(enum.Enum):
-    VALID = 'valid'
-    EXPIRED = 'expired'
-    FAKE = 'fake'
+    VALID = 'Valid'
+    EXPIRED = 'Expired'
+    FAKE = 'Fake'
 
 class profile_type(enum.Enum):
-    DRIVER = 'driver'
-    MECHANIC = 'mechanic'
-    HELPER = 'helper'
+    DRIVER = 'Driver'
+    MECHANIC = 'Mechanic'
+    HELPER = 'Helper'
 
 
 class DriverProfile(db.Model):
@@ -25,6 +25,7 @@ class DriverProfile(db.Model):
     drug_test_result = db.Column(db.Enum(drug_test_results))
     license_validity = db.Column(db.Enum(validity))
     incident_involvement = db.Column(db.Boolean)
+    rider_rating = db.Column(db.Float)
     breathalyzer_results = db.Column(db.Float)
     dangerous_driving_patterns = db.Column(db.Boolean)
     work_violations = db.Column(db.Integer)
@@ -39,6 +40,7 @@ class MechanicProfile(db.Model):
     profile_name = db.Column(db.String(50))
     id_cert_validity = db.Column(db.Enum(validity))
     repair_rates = db.Column(db.Integer)
+    downtime_intervals = db.Column(db.Integer)
     internal_review_score = db.Column(db.Float)
     equipment_violations = db.Column(db.Integer)
 
@@ -56,6 +58,6 @@ class EvaluationResults(db.Model):
     __tablename__ = "eval_results"
 
     profile_id = db.Column(db.Integer, primary_key=True)
-    profile_type = db.Column(db.Enum(profile_type))
+    profile_type = db.Column(db.Enum(profile_type), primary_key=True)
     profile_score = db.Column(db.Integer)
     issues_list = db.Column(db.String())
