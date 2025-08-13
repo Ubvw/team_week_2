@@ -5,7 +5,7 @@ bp = Blueprint('main', __name__)
 
 @bp.route('/employees', methods = ["GET"])
 def get_employees():
-    response = {"employees": get_employee_database()}
+    response = get_employee_database()
     return jsonify(response)
 
 @bp.route('/employee/<profile_type>/<id>', methods = ["GET"])
